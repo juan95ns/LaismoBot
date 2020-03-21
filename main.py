@@ -2,23 +2,31 @@
 # -*- coding: utf-8 -*-
 
 from dotenv import load_dotenv
-from telegram.ext import Updater
+from pathlib import Path
+from telegram.ext import Updater, MessageHandler, Filters
+from telegram import Update
 import logging
 import os
 
-logging.basicConfig(
+logger = logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+parguelas = ["wenga28", "Juan9Pan"]
+
+
+def messageHandler(update: Update, context):
+    if update.message.from_user.username in parguelas:
+        update.message.reply_text('Eres idiota')
 
 
 def main():
-    load_dotenv()
-    updater = Updater(token=os.getenv('TELEGRAM_BOT'), use_context=True)
+    token = os.getenv('TELEGRAM_TOKEN')
+    updater = Updater(token=token, use_context=True)
 
     dp = updater.dispatcher
 
-    dp.add_handler()
+    dp.add_handler(MessageHandler(Filters.text, messageHandler))
 
     updater.start_polling()
 
@@ -26,4 +34,7 @@ def main():
 
 
 if __name__ == "__main__":
+    env_path = Path('.') / '.env'
+    load_dotenv(dotenv_path=env_path)
+
     main()
