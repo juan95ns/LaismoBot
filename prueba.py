@@ -1,6 +1,5 @@
 import json
 
-USERS = ["wenga28", "Juan9Pan"]
 WORDS = ["la", "le", "lo"]
 
 
