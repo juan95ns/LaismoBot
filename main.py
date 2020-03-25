@@ -12,7 +12,7 @@ logger = logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
-parguelas = ["wenga28", "Juan9Pan"]
+parguelas = []
 
 
 def messageHandler(update: Update, context):
@@ -36,5 +36,7 @@ def main():
 if __name__ == "__main__":
     env_path = Path('.') / '.env'
     load_dotenv(dotenv_path=env_path)
+
+    parguelas = os.getenv('USERS').split(',')
 
     main()
