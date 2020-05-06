@@ -8,6 +8,7 @@ from telegram import Update
 from laismo_lib import *
 import logging
 import os
+import random
 
 
 def messageHandler(update: Update, context: CallbackContext):
@@ -15,7 +16,10 @@ def messageHandler(update: Update, context: CallbackContext):
 
     if user and allowed_user(user.username) and check_laismo(update.message.text):
         add_stats(user.username)
-        update.message.reply_text("¡Cuidado con ese posible laísmo/leísmo madrizleño!")
+
+        prob = random.randint(1, 101)
+        if prob > 60:
+            update.message.reply_text("¡Cuidado con ese posible laísmo/leísmo madrizleño!")
 
 
 def statsHandler(update: Update, context: CallbackContext):
